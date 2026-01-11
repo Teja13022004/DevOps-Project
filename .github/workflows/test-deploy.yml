@@ -1,9 +1,6 @@
 name: Test Environment Deployment
 
 on:
-  push:
-    branches:
-      - test
   pull_request:
     branches:
       - test
@@ -59,7 +56,7 @@ jobs:
       - name: Deploy to TEST EC2
         uses: appleboy/ssh-action@v1.0.0
         with:
-          host: ${{ secrets.AWS_EC2_HOST }}
+          host: ${{ secrets.AWS_EC2_HOST_TEST }}
           username: ${{ secrets.AWS_EC2_USER }}
           key: ${{ secrets.AWS_EC2_SSH_KEY }}
           script: |
@@ -87,7 +84,7 @@ jobs:
       - name: Verify deployment
         uses: appleboy/ssh-action@v1.0.0
         with:
-          host: ${{ secrets.AWS_EC2_HOST }}
+          host: ${{ secrets.AWS_EC2_HOST_TEST }}
           username: ${{ secrets.AWS_EC2_USER }}
           key: ${{ secrets.AWS_EC2_SSH_KEY }}
           script: |
@@ -118,7 +115,7 @@ jobs:
       - name: Run smoke tests
         uses: appleboy/ssh-action@v1.0.0
         with:
-          host: ${{ secrets.AWS_EC2_HOST }}
+          host: ${{ secrets.AWS_EC2_HOST_TEST }}
           username: ${{ secrets.AWS_EC2_USER }}
           key: ${{ secrets.AWS_EC2_SSH_KEY }}
           script: |
@@ -133,7 +130,7 @@ jobs:
         run: |
           if [ ${{ job.status }} == 'success' ]; then
             echo "✅ TEST deployment completed successfully"
-            echo "🔗 Access at: http://${{ secrets.AWS_EC2_HOST }}:3002"
+            echo "🔗 Access at: http://${{ secrets.AWS_EC2_HOST_TEST }}:3002"
           else
             echo " TEST deployment failed"
             exit 1
