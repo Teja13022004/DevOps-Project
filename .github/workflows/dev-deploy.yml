@@ -48,7 +48,7 @@ jobs:
       - name: Deploy to DEV EC2
         uses: appleboy/ssh-action@v1.0.0
         with:
-          host: ${{ secrets.AWS_EC2_HOST }}
+          host: ${{ secrets.AWS_EC2_HOST_DEV }}
           username: ${{ secrets.AWS_EC2_USER }}
           key: ${{ secrets.AWS_EC2_SSH_KEY }}
           script: |
@@ -76,7 +76,7 @@ jobs:
       - name: Verify deployment
         uses: appleboy/ssh-action@v1.0.0
         with:
-          host: ${{ secrets.AWS_EC2_HOST }}
+          host: ${{ secrets.AWS_EC2_HOST_DEV }}
           username: ${{ secrets.AWS_EC2_USER }}
           key: ${{ secrets.AWS_EC2_SSH_KEY }}
           script: |
@@ -109,7 +109,7 @@ jobs:
         run: |
           if [ ${{ job.status }} == 'success' ]; then
             echo "✅ DEV deployment completed successfully"
-            echo "🔗 Access at: http://${{ secrets.AWS_EC2_HOST }}:3001"
+            echo "🔗 Access at: http://${{ secrets.AWS_EC2_HOST_DEV }}:3001"
           else
             echo " DEV deployment failed"
             exit 1
