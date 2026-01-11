@@ -55,7 +55,7 @@ jobs:
       - name: Deploy to PROD EC2
         uses: appleboy/ssh-action@v1.0.0
         with:
-          host: ${{ secrets.AWS_EC2_HOST }}
+          host: ${{ secrets.AWS_EC2_HOST_PROD }}
           username: ${{ secrets.AWS_EC2_USER }}
           key: ${{ secrets.AWS_EC2_SSH_KEY }}
           script: |
@@ -83,7 +83,7 @@ jobs:
       - name: Verify deployment
         uses: appleboy/ssh-action@v1.0.0
         with:
-          host: ${{ secrets.AWS_EC2_HOST }}
+          host: ${{ secrets.AWS_EC2_HOST_PROD }}
           username: ${{ secrets.AWS_EC2_USER }}
           key: ${{ secrets.AWS_EC2_SSH_KEY }}
           script: |
@@ -114,7 +114,7 @@ jobs:
       - name: Run production smoke tests
         uses: appleboy/ssh-action@v1.0.0
         with:
-          host: ${{ secrets.AWS_EC2_HOST }}
+          host: ${{ secrets.AWS_EC2_HOST_PROD }}
           username: ${{ secrets.AWS_EC2_USER }}
           key: ${{ secrets.AWS_EC2_SSH_KEY }}
           script: |
